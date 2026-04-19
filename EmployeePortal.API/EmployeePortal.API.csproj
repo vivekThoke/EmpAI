@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeePortal.Application\EmployeePortal.Application.csproj" />
+    <ProjectReference Include="..\EmployeePortal.Infrastructure\EmployeePortal.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

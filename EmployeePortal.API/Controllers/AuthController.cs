@@ -23,7 +23,7 @@ namespace EmployeePortal.API.Controllers
             {
                 Id = Guid.NewGuid(),
                 Name = dto.Name,
-                Email = dto.Email,
+                Email = dto.Email,  
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
                 Role = "Employee"
             };

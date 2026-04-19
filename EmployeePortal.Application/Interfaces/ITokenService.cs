@@ -7,7 +7,7 @@ using EmployeePortal.Domain.Entities;
 
 namespace EmployeePortal.Application.Interfaces
 {
-    internal interface ITokenService
+    public interface ITokenService
     {
         string GenerateToken(User user);
     }

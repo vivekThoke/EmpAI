@@ -11,13 +11,11 @@ namespace EmployeePortal.API.Controllers
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
-        private readonly AppDbContext _context;
-        private readonly ITokenService _tokenService;
+        private readonly IAuthService _authService;
 
-        public AuthController(AppDbContext context, ITokenService tokenService)
+        public AuthController(IAuthService authService)
         {
-            _context = context;
-            _tokenService = tokenService;
+            _authService = authService;
         }
 
         [HttpPost("register")]

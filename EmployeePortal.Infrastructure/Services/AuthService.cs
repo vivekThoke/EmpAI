@@ -44,5 +44,17 @@ namespace EmployeePortal.Infrastructure.Services
 
             return "User Register Successfully";
         }
+
+        public async Task<string> LoginAsync(LoginDto dto)
+        {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
+
+            if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
+            {
+                throw new Exception("Invalid Credentials");
+            }
+
+            return _tokenService.GenerateToken(user);
+        }
     }
 }

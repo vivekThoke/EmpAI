@@ -1,4 +1,5 @@
-﻿using BCrypt.Net;
+﻿using System.Threading.Tasks;
+using BCrypt.Net;
 using EmployeePortal.Application.DTOs;
 using EmployeePortal.Application.Interfaces;
 using EmployeePortal.Domain.Entities;
@@ -21,32 +22,15 @@ namespace EmployeePortal.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
-            var user = new User
-            {
-                Id = Guid.NewGuid(),
-                Name = dto.Name,
-                Email = dto.Email,  
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-                Role = "Employee"
-            };
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return Ok("User registered successfully");
+            var result = await _authService.RegisterAsync(dto);
+            return Ok(result);
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginDto dto)
+        public async Task<IActionResult> Login(LoginDto dto)
         {
-            var user = _context.Users.FirstOrDefault(x => x.Email == dto.Email);
-
-            if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
-                return Unauthorized("Invalid credentials");
-
-            string token = _tokenService.GenerateToken(user);
-
-            return Ok(new { token });
+            var token = await _authService.LoginAsync(dto);
+            return Ok(token);
         }
     }
 }

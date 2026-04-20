@@ -1,4 +1,5 @@
 using System.Text;
+using EmployeePortal.API.Middleware;
 using EmployeePortal.Application.Interfaces;
 using EmployeePortal.Infrastructure.Data;
 using EmployeePortal.Infrastructure.Services;
@@ -56,6 +57,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapControllers();
 

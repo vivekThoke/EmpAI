@@ -43,7 +43,7 @@ namespace EmployeePortal.API.Controllers
         {
             var user = _context.Users.FirstOrDefault(x => x.Email == dto.Email);
 
-            if (user == null || BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
+            if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
                 return Unauthorized("Invalid credentials");
 
             string token = _tokenService.GenerateToken(user);

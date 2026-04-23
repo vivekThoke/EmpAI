@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import api from "../services/apiClient";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
     const [data, setData] = useState("");

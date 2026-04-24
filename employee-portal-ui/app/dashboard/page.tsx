@@ -31,6 +31,12 @@ export default function Dashboard() {
         <div>
             <h2>Dashboard</h2>
             <p>{data}</p>
+            <button onClick={() => {
+                localStorage.removeItem("token");
+                router.push("/login");
+            }}>
+                Logout 
+            </button>
         </div>
     )
 }

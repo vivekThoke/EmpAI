@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import api from "../services/apiClient";
 import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
+export default function RegisterPage() {
     const {
         register,
         handleSubmit,
@@ -15,11 +15,11 @@ export default function LoginPage() {
 
     const onSubmit = async (data: any) => {
         try {
-            const res = await api.post("/Auth/login", data);
-            localStorage.setItem("token", res.data.token);
-            router.push("/dashboard");
+            await api.post("/Auth/register", data);
+            alert("Registration successful");
+            router.push("/login");
         } catch (err: any) {
-            alert(err.response?.data || "Login Failed");
+            alert(err.response?.data || "Registration Failed");
         }
     };
 
@@ -27,7 +27,7 @@ export default function LoginPage() {
         <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center font-sans text-white">
 
             {/* Card */}
-            <div className="w-[400px] px-8 py-10 rounded-2xl 
+            <div className="w-[420px] px-8 py-10 rounded-2xl 
                             bg-[#121212]/80 backdrop-blur-xl 
                             border border-white/10 
                             shadow-[0_0_40px_rgba(0,0,0,0.6)]">
@@ -35,14 +35,40 @@ export default function LoginPage() {
                 {/* Header */}
                 <div className="mb-8">
                     <h1 className="text-3xl font-semibold tracking-tight">
-                        Sign in
+                        Create account
                     </h1>
                     <p className="text-sm text-gray-400 mt-1">
-                        Access your enterprise dashboard
+                        Start your enterprise journey
                     </p>
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+
+                    {/* Name */}
+                    <div className="space-y-1.5">
+                        <label className="text-xs text-gray-400 font-medium tracking-wide">
+                            FULL NAME
+                        </label>
+
+                        <input
+                            {...register("name", { required: "Name is required" })}
+                            placeholder="John Doe"
+                            className="w-full px-3 py-2.5 rounded-lg 
+                                       bg-[#0A0A0A] border border-white/10 
+                                       text-sm text-white
+                                       placeholder:text-gray-500
+                                       focus:outline-none 
+                                       focus:border-blue-500 
+                                       focus:ring-1 focus:ring-blue-500
+                                       transition-all"
+                        />
+
+                        {errors.name && (
+                            <p className="text-[11px] text-orange-400">
+                                {errors.name.message as string}
+                            </p>
+                        )}
+                    </div>
 
                     {/* Email */}
                     <div className="space-y-1.5">
@@ -97,7 +123,36 @@ export default function LoginPage() {
                         )}
                     </div>
 
-                    {/* Button */}
+                    {/* Confirm Password */}
+                    <div className="space-y-1.5">
+                        <label className="text-xs text-gray-400 font-medium tracking-wide">
+                            CONFIRM PASSWORD
+                        </label>
+
+                        <input
+                            {...register("confirmPassword", {
+                                required: "Confirm password is required",
+                            })}
+                            type="password"
+                            placeholder="••••••••"
+                            className="w-full px-3 py-2.5 rounded-lg 
+                                       bg-[#0A0A0A] border border-white/10 
+                                       text-sm text-white
+                                       placeholder:text-gray-500
+                                       focus:outline-none 
+                                       focus:border-blue-500 
+                                       focus:ring-1 focus:ring-blue-500
+                                       transition-all"
+                        />
+
+                        {errors.confirmPassword && (
+                            <p className="text-[11px] text-orange-400">
+                                {errors.confirmPassword.message as string}
+                            </p>
+                        )}
+                    </div>
+
+                    {/* CTA */}
                     <button
                         type="submit"
                         disabled={isSubmitting}
@@ -107,18 +162,19 @@ export default function LoginPage() {
                                    transition-all duration-200
                                    disabled:opacity-50 cursor-pointer"
                     >
-                        {isSubmitting ? "Signing in..." : "Sign In"}
+                        {isSubmitting ? "Creating account..." : "Create Account"}
                     </button>
                 </form>
 
+                {/* Footer */}
                 <div className="mt-8 text-center">
                     <p className="text-xs text-gray-500">
-                        New User?{" "}
+                        Already have an account?{" "}
                         <span
-                            onClick={() => router.push("/register")}
+                            onClick={() => router.push("/login")}
                             className="text-blue-400 cursor-pointer hover:underline"
                         >
-                            Register
+                            Sign in
                         </span>
                     </p>
                 </div>

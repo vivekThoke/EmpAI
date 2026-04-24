@@ -9,10 +9,10 @@ export default function Dashboard() {
     const router = useRouter();
 
     useEffect(() => {
-        if (!localStorage.getItem("token")) {
-            router.push("/login");
-            return;
-        }
+        // if (!localStorage.getItem("token")) {
+        //     router.push("/login");
+        //     return;
+        // }
 
         const fetchData = async () => {
             try {

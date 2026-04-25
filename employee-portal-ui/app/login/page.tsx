@@ -16,7 +16,7 @@ export default function LoginPage() {
     const onSubmit = async (data: any) => {
         try {
             const res = await api.post("/Auth/login", data);
-            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("token", res.data);
             router.push("/dashboard");
         } catch (err: any) {
             alert(err.response?.data || "Login Failed");

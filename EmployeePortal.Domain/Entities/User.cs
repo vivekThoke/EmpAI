@@ -13,5 +13,10 @@ namespace EmployeePortal.Domain.Entities
         public string ?Email { get; set;  }
         public string ?PasswordHash { get; set; }
         public string ?Role { get; set; }
+
+        // New Fields 
+        public string ?Department { get; set; }
+        public string ?Designation { get; set }
+        public DateTime CreatedAt { get; set; }
     }
 }

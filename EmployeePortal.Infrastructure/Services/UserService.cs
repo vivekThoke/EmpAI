@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EmployeePortal.Application.DTOs;
 using EmployeePortal.Application.Interfaces;
 using EmployeePortal.Infrastructure.Data;
 
@@ -16,5 +17,19 @@ namespace EmployeePortal.Infrastructure.Services
         {
             _context = context;
         }
+
+        public async Task<UserDto> GetCurrentUserAsync(Guid userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            return new UserDto
+            {
+                Name = user?.Name,
+                Email = user?.Email,
+                Department = user?.Department,
+                Designation = user?.Designation
+            };
+        }
+
     }
 }

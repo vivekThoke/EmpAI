@@ -44,5 +44,15 @@ namespace EmployeePortal.Infrastructure.Services
                             }).ToListAsync();
         }
 
+        public async Task UpdateUserAsync(Guid userId, UpdateUserDto dto)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            user.Name = dto.Name;
+            user.Department = dto.Department;
+            user.Designation = dto.Designation;
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EmployeePortal.Application.DTOs;
 using EmployeePortal.Application.Interfaces;
 using EmployeePortal.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeePortal.Infrastructure.Services
 {
@@ -29,6 +30,18 @@ namespace EmployeePortal.Infrastructure.Services
                 Department = user?.Department,
                 Designation = user?.Designation
             };
+        }
+
+        public async Task<List<UserDto>> GetAllUserAsync()
+        {
+            return await _context.Users
+                            .Select(u => new UserDto
+                            {
+                                Name = u.Name,
+                                Email = u.Email,
+                                Department = u.Department,
+                                Designation = u.Designation
+                            }).ToListAsync();
         }
 
     }

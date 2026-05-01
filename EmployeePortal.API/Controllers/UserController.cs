@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using EmployeePortal.Application.DTOs;
 using EmployeePortal.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,13 @@ namespace EmployeePortal.API.Controllers
         {
             var users = await _userService.GetAllUserAsync();
             return Ok(users);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(UpdateUserDto dto)
+        {
+            await _userService.UpdateUserAsync(GetUserId(), dto);
+            return Ok("Updated Successfully");
         }
     }
 }

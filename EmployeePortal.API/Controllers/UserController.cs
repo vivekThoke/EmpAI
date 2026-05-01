@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using EmployeePortal.Application.DTOs;
 using EmployeePortal.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -24,9 +25,10 @@ namespace EmployeePortal.API.Controllers
 
         [Authorize]
         [HttpGet("me")]
-        public IActionResult GetMe()
+        public async Task<IActionResult> GetMe()
         {
-            return Ok("You are authenticated");
+            var user = await _userService.GetCurrentUserAsync(GetUserId());
+            return Ok(user);
         }
 
         [Authorize(Roles = "Admin")]

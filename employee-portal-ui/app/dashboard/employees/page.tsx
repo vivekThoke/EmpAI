@@ -32,5 +32,31 @@ export default function EmployeePage() {
     }, []);
 
 
-    
+    return (
+        <div className="p-6">
+            <h1 className="text-3xl font-bold mb-6">Employee</h1>
+
+            <table className="w-full border border-collapse">
+                <thead>
+                    <tr className="bg-gray-200">
+                        <th className="border p-2">Name</th>
+                        <th className="border p-2">Email</th>
+                        <th className="border p-2">Department</th>
+                        <th className="border p-2">Designation</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {users.map((u, index) => (
+                        <tr key={index}>
+                            <td className="border p-2">{u.name}</td>
+                            <td className="border p-2">{u.email}</td>
+                            <td className="border p-2">{u.department}</td>
+                            <td className="border p-2">{u.designation}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    )
 }   
